@@ -15,7 +15,6 @@ const getItems = async () => {
   setInterval(
     () =>
       getItems().then((items) => {
-        console.log("update");
         if (items[0].id !== cache[0].id) {
           for (let i = 0; i < items.length; i++) {
             if (items[i].id === cache[0].id) {

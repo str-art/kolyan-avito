@@ -76,7 +76,19 @@ const parseBody = (body) => {
         const itemprop = node.getAttribute("data-marker");
 
         if (itemprop === "item-date") {
-          return parseInt(node.text.split(" ")[0]);
+          const [num, unit] = node.text.split(" ");
+          switch (true) {
+            case unit.indexOf("мин") === 0: {
+              return parseInt(num);
+            }
+            case unit.indexOf("час") === 0: {
+              return parseInt(num) * 60;
+            }
+            case unit.indexOf("дня") === 0: {
+              return parseInt(num) * 60 * 24;
+            }
+          }
+          return Infinity;
         }
       }
 
