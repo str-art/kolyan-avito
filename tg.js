@@ -17,7 +17,11 @@ ${content}
       text,
       parse_mode: "HTML",
     });
-  } catch (err) {
-    console.log(err);
+  } catch ({ response }) {
+    const { data } = response;
+    if (data.error_code === 429) {
+      setTimeout(() => sendToTg({ price, title, url, content }), 10);
+    }
+    console.error(data);
   }
 };
