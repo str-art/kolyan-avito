@@ -28,4 +28,4 @@ const AvitoBot = new App(
 
 (async () => {
   await AvitoBot.bootstrap();
-})();
+})().catch((err) => process.exit(1));
