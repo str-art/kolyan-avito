@@ -4,7 +4,7 @@ ARG dir=.
 
 WORKDIR /usr/src/server
 
-COPY package*.json ./
+COPY ${dir}/package*.json ./
 
 RUN npm install
 
