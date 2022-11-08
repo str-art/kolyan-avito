@@ -15,7 +15,6 @@ export class Avito {
         });
 
         res.on("end", () => {
-          console.log(data);
           resolve(parse(data));
         });
 

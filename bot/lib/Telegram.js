@@ -7,7 +7,7 @@ export class Telegram {
     this.queue = new PriorityQueue();
     this.startPriority = 1;
     this.host = "https:/api.telegram.org/";
-    this.tickTime = 500;
+    this.tickTime = 1000;
     this.__intervalTick();
   }
 
@@ -26,7 +26,7 @@ export class Telegram {
       await this.__sendMessage(value);
     } catch (error) {
       if (error.response?.data.error_code === 429) {
-        nextTickTime += error.response.data.parameters.retry_after;
+        nextTickTime += error.response.data.parameters.retry_after * 1000;
         this.queue.insert({ priority, value });
       } else {
         console.error(error);

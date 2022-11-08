@@ -4,8 +4,6 @@ services:
   db:
     build: ./database
     container_name: database
-    volumes:
-      - ./seeds.sql:/docker-entrypoint-initdb.d/seeds.sql
     expose:
       - ${DATABASE_PORT}
     environment:

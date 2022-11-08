@@ -22,7 +22,10 @@ export class App {
       for (const item of newItems) {
         try {
           const parsedItem = this.AvitoService.AvitoItem.parseItem(item);
-          await this.entities.SearchItem.insert(parsedItem);
+          await this.entities.SearchItem.insert({
+            id: parsedItem.id,
+            url: parsedItem.url,
+          });
           this.Telegram.sendItem(parsedItem);
         } catch (error) {
           if (!error.message.includes("SearchItem_pkey")) {
