@@ -3,6 +3,7 @@ import Database from "./database/Database.js";
 import DirLoader from "./database/DirLoader.js";
 import { Telegram } from "./Telegram.js";
 import path from "path";
+import tr from "tor-request";
 
 export class App {
   url;
@@ -16,9 +17,22 @@ export class App {
   }
 
   async loopTick() {
+    console.log("New main loop tick");
     try {
+      await new Promise((resolve, reject) => {
+        tr.newTorSession((err) => {
+          if (err) {
+            console.error("newTorSessionError", err);
+            reject(err);
+          }
+          resolve();
+        });
+      });
+      console.log("Avito search");
       const searchResult = await this.AvitoService.search(this.url);
+      console.log("Avito search done");
       const newItems = this.AvitoService.getItemsFromSearch(searchResult);
+      console.log("Parsed search result");
       for (const item of newItems) {
         try {
           const parsedItem = this.AvitoService.AvitoItem.parseItem(item);
@@ -36,7 +50,8 @@ export class App {
     } catch (error) {
       console.log(error);
     } finally {
-      setTimeout(() => this.loopTick(), this.interval * 1000);
+      console.log("setting next loop tick");
+      setTimeout(() => this.loopTick(), this.interval * 1000 * 60);
     }
   }
 

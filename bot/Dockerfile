@@ -1,11 +1,19 @@
 FROM node:14
 
-ARG dir=.
+RUN apt-get update && apt-get -y install tor
+
+WORKDIR /etc/tor
+
+COPY torrc ./
 
 WORKDIR /usr/src/server
 
-COPY ${dir}/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY ${dir} . 
+COPY . . 
+
+RUN chmod +x ./init.sh
+
+CMD ./init.sh
