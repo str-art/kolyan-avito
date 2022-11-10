@@ -1,6 +1,6 @@
 FROM node:14
 
-RUN apt-get update && apt-get -y install tor
+RUN apt-get update && apt-get -y install tor obfs4proxy
 
 WORKDIR /etc/tor
 
