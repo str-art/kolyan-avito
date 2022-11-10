@@ -3,7 +3,7 @@ version: "3"
 services:
   db:
     build: ./database
-    container_name: database
+    container_name: database-${COMPOSE_PROJECT_NAME}
     expose:
       - ${DATABASE_PORT}
     environment:
@@ -15,7 +15,7 @@ services:
     command: ["postgres", "-c", "log_statement=all"]
   bot:
     build: ./bot
-    container_name: bot
+    container_name: bot-${COMPOSE_PROJECT_NAME}
     environment:
       - DATABASE_HOST=db
       - DATABASE_PORT=${DATABASE_PORT}

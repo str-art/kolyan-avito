@@ -14,7 +14,7 @@ export class Avito {
       });
     });
     return new Promise((resolve, reject) => {
-      const req = tr.request(url, { timout: 120 });
+      const req = tr.request({ url, timeout: 5000 });
 
       let data = "";
 
