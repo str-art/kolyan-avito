@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 touch log.txt
 
 tor > log.txt &
