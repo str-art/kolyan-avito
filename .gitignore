@@ -5,3 +5,4 @@ seeds.sql
 .git/
 .DS_Store
 .vscode/
+bot/torrc
