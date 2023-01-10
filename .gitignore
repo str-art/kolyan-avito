@@ -2,3 +2,6 @@ bot/node_modules/
 bot/package-lock.json
 .env
 seeds.sql
+.git/
+.DS_Store
+.vscode/

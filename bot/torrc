@@ -19,7 +19,7 @@
 #SocksPort 192.168.0.1:9100 # Bind to this address:port too.
 
 ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-Bridge 
+Bridge obfs4 46.226.107.4:41557 0B6B867B6CE856C1F7D145B5BFFF2E90B3567D87 cert=VFj5HSpIG9ueEOye5uOjFetm2NEl6VHuE2HvUYSZYTD7N9dJlf9in58U+wT+UOt9WWMkNQ iat-mode=0
 UseBridges 1
 
 ## Entry policies to allow/deny SOCKS requests based on IP address.
