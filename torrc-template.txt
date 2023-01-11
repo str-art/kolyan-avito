@@ -1,0 +1,5 @@
+ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+Bridge obfs4
+UseBridges 1
+ControlPort 9051
+CookieAuthentication 0
