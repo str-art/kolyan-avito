@@ -18,41 +18,61 @@ export class App {
 
   async loopTick() {
     console.log("New main loop tick");
-    try {
-      await new Promise((resolve, reject) => {
-        tr.newTorSession((err) => {
-          if (err) {
-            console.error("newTorSessionError", err);
-            reject(err);
-          }
-          resolve();
+    await this.rejectInTimeout(() => this.step());
+    setTimeout(() => this.loopTick(), this.interval * 1000 * 60);
+  }
+
+  async step() {
+    await this.changeIp();
+    console.log("Avito search");
+    const searchResult = await this.AvitoService.search(this.url);
+    console.log("Avito search done");
+    const newItems = this.AvitoService.getItemsFromSearch(searchResult);
+    console.log("Parsed search result");
+    for (const item of newItems) {
+      try {
+        const parsedItem = this.AvitoService.AvitoItem.parseItem(item);
+        await this.entities.SearchItem.insert({
+          id: parsedItem.id,
+          url: parsedItem.url,
         });
-      });
-      console.log("Avito search");
-      const searchResult = await this.AvitoService.search(this.url);
-      console.log("Avito search done");
-      const newItems = this.AvitoService.getItemsFromSearch(searchResult);
-      console.log("Parsed search result");
-      for (const item of newItems) {
-        try {
-          const parsedItem = this.AvitoService.AvitoItem.parseItem(item);
-          await this.entities.SearchItem.insert({
-            id: parsedItem.id,
-            url: parsedItem.url,
-          });
-          this.Telegram.sendItem(parsedItem);
-        } catch (error) {
-          if (!error.message.includes("SearchItem_pkey")) {
-            console.error(error);
-          }
+        this.Telegram.sendItem(parsedItem);
+      } catch (error) {
+        if (!error.message.includes("SearchItem_pkey")) {
+          console.error(error);
         }
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      console.log("setting next loop tick");
-      setTimeout(() => this.loopTick(), this.interval * 1000 * 60);
     }
+  }
+
+  async changeIp() {
+    console.log("Changing IP");
+    return new Promise((resolve, reject) => {
+      tr.newTorSession((err) => {
+        if (err) {
+          console.error("newTorSessionError", err);
+          reject(err);
+        }
+        resolve();
+      });
+    });
+  }
+
+  rejectInTimeout(func) {
+    return new Promise((ok, fail) => {
+      const timeout = setTimeout(() => {
+        fail(new Error("Timeout exceeded"));
+      }, this.interval * 1000 * 60);
+      func()
+        .then(() => {
+          clearTimeout(timeout);
+          ok();
+        })
+        .catch((err) => {
+          clearTimeout(timeout);
+          fail(err);
+        });
+    });
   }
 
   async bootstrap() {

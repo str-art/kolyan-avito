@@ -43,7 +43,7 @@ wait_for_bootstrap(){
 bootstrap_tor(){
     LOG_FILE="/tmp/tor-log-$(unixtimestamp).txt"
 
-    SUCCESS="100%"
+    SUCCESS="Bootstrapped 100%"
 
     FAILURE="Exiting."
 
@@ -61,7 +61,13 @@ bootstrap_tor(){
 }
 
 run_bot(){
-  BOT_COMMAND="$(which node) $BOT_DIR/$@"
+  ARGS_LENGTH="$#"
+
+  COMMAND="${@:-1}"
+
+  PARAMETERS="${@:1:ARGS_LENGTH-1}"
+
+  BOT_COMMAND="$(which node) $PARAMETERS $BOT_DIR/$COMMAND"
 
   info "Launching bot"
 
@@ -76,6 +82,6 @@ info "Parameters are: $@"
 
 bootstrap_tor
 
-run_bot "$1"
+run_bot $@
 
 info "Bot exited"

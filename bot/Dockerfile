@@ -8,6 +8,8 @@ ENV TORRC_PATH=/etc/tor/torrc
 
 ENV ENTRYPOINT_FOLDER=/opt/entrypoint
 
+ENV TZ=Asia/Omsk
+
 COPY torrc ${TORRC_PATH}
 
 WORKDIR ${BOT_DIR}
@@ -24,4 +26,4 @@ COPY ./entrypoint ${ENTRYPOINT_FOLDER}
 
 RUN chmod -R +x ${ENTRYPOINT_FOLDER}
 
-ENTRYPOINT ${ENTRYPOINT_FOLDER}/entrypoint.sh index.js
+ENTRYPOINT exec ${ENTRYPOINT_FOLDER}/entrypoint.sh index.js
