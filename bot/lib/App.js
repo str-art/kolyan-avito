@@ -66,7 +66,12 @@ export class App {
 
   async loadEntities() {
     this.entities = {};
-    const entitiesPath = path.join(process.env.DIR_ROOT, "entities");
+    const entitiesPath = path.join(
+      process.env.DIR_ROOT,
+      "lib",
+      "database",
+      "entities"
+    );
     const entities = await this.dirLoader.loadDir(entitiesPath);
     for (const E of entities) {
       const entity = new E(this.database);

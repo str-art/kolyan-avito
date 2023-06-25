@@ -1,4 +1,4 @@
-import Entity from "../lib/database/Entity.js";
+import Entity from "../Entity.js";
 
 export default class SearchItem extends Entity {
   constructor(database) {
