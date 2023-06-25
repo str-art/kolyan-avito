@@ -1,0 +1,20 @@
+{
+  "name": "aws-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.359.0",
+    "aws-lambda-ric": "^2.1.0",
+    "axios": "^1.4.0",
+    "node-html-parser": "^6.1.5",
+    "proxy-agent": "^5.0.0",
+    "tor-request": "^3.1.0"
+  }
+}

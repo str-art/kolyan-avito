@@ -8,10 +8,13 @@ export class Avito {
   }
   async search(url) {
     await new Promise((resolve) => {
-      tr.request("https://api.ipify.org").on("complete", (resp, body) => {
-        console.log(body);
-        resolve();
-      });
+      tr.request("https://api.ipify.org", { timeout: 5000 }).on(
+        "complete",
+        (resp, body) => {
+          console.log(body);
+          resolve();
+        }
+      );
     });
     return new Promise((resolve, reject) => {
       const req = tr.request({ url, timeout: 5000 });
