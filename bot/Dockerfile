@@ -2,18 +2,26 @@ FROM node:14
 
 RUN apt-get update --allow-insecure-repositories && apt-get -y install tor obfs4proxy
 
-WORKDIR /etc/tor
+ENV BOT_DIR=/opt/bot
 
-COPY torrc ./
+ENV TORRC_PATH=/etc/tor/torrc
 
-WORKDIR /usr/src/server
+ENV ENTRYPOINT_FOLDER=/opt/entrypoint
+
+COPY torrc ${TORRC_PATH}
+
+WORKDIR ${BOT_DIR}
 
 COPY package*.json ./
 
 RUN npm install
 
-COPY . . 
+COPY ./lib ./lib
 
-RUN chmod +x ./init.sh
+COPY index.js .
 
-ENTRYPOINT ["./init.sh"]
+COPY ./entrypoint ${ENTRYPOINT_FOLDER}
+
+RUN chmod -R +x ${ENTRYPOINT_FOLDER}
+
+ENTRYPOINT ${ENTRYPOINT_FOLDER}/entrypoint.sh index.js
