@@ -5,7 +5,6 @@ export class Telegram {
   constructor({ chat_id, token }) {
     (this.chat_id = chat_id), (this.token = token);
     this.queue = new PriorityQueue();
-    this.startPriority = 1;
     this.host = "https:/api.telegram.org/";
     this.tickTime = 1000;
     this.__intervalTick();
@@ -38,8 +37,7 @@ export class Telegram {
   }
 
   sendItem(item) {
-    this.queue.insert({ priority: this.startPriority, value: item });
-    this.startPriority++;
+    this.queue.insert({ value: item });
   }
 
   async __sendMessage(item) {

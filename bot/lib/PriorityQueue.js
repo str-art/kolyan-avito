@@ -1,7 +1,7 @@
 export default class PriorityQueue {
   indexes = [];
 
-  insert({ priority = 0, value }) {
+  insert({ priority = this.indexes.length, value }) {
     let index = this.indexes.length;
     let parentIndex = this.getParentIndex(index);
     let item = { priority, value };
