@@ -61,15 +61,26 @@ bootstrap_tor(){
 }
 
 run_bot(){
+
+  info "Recieved command $@"
+
   ARGS_LENGTH="$#"
 
-  COMMAND="${@:-1}"
+  info "Args length $ARGS_LENGTH"
+
+  COMMAND="${@:$#}"
+
+  info "Command $COMMAND"
 
   PARAMETERS="${@:1:ARGS_LENGTH-1}"
+
+  info "Parameters $PARAMETERS"
 
   BOT_COMMAND="$(which node) $PARAMETERS $BOT_DIR/$COMMAND"
 
   info "Launching bot"
+
+  info "Running $BOT_COMMAND"
 
   $BOT_COMMAND | $ENTRYPOINT_FOLDER/handler-log.sh
 
@@ -77,8 +88,6 @@ run_bot(){
 }
 
 info "Container starting"
-
-info "Parameters are: $@"
 
 bootstrap_tor
 

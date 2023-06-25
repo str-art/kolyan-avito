@@ -26,4 +26,4 @@ COPY ./entrypoint ${ENTRYPOINT_FOLDER}
 
 RUN chmod -R +x ${ENTRYPOINT_FOLDER}
 
-ENTRYPOINT exec ${ENTRYPOINT_FOLDER}/entrypoint.sh index.js
+CMD ${ENTRYPOINT_FOLDER}/entrypoint.sh "--unhandled-rejections=strict index.js"
