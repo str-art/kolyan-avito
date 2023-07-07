@@ -7,7 +7,8 @@ class Telegram {
 
   async sendMessage(item) {
     const text = this.formatText(item);
-    await this.request(item.token, "post", "sendMessage", {
+    const token = process.env.TOKEN;
+    await this.request(token, "post", "sendMessage", {
       chat_id: item.chat_id,
       text,
       parse_mode: "HTML",

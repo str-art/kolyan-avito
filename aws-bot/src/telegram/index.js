@@ -8,8 +8,6 @@ exports.handler = async (event, context) => {
     const { Records } = event;
     const { dynamodb } = Records[0];
     const item = unmarshall(dynamodb.NewImage);
-    console.log(dynamodb);
-    console.log(item);
     await tg.sendMessage(item);
     return {
       code: 200,
