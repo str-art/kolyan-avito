@@ -1,8 +1,7 @@
 const { DynamoDB } = require("@aws-sdk/client-dynamodb");
 
-const ITEM = "ITEM";
 const DELIMITER = "@";
-const ITEM_SK = (id) => `${ITEM}${DELIMITER}${id}`;
+const ITEM_SK = (item) => `${item.user_id}${DELIMITER}${item.id}`;
 
 class Dynamo {
   constructor(table_name) {
@@ -30,9 +29,6 @@ class Dynamo {
             chat_id: {
               S: item.chat_id,
             },
-            token: {
-              S: item.token,
-            },
             title: {
               S: item.title,
             },
@@ -40,7 +36,7 @@ class Dynamo {
               S: subscription,
             },
             SK: {
-              S: ITEM_SK(item.id),
+              S: ITEM_SK(item),
             },
           },
           ConditionExpression: "PK <> :PKVal AND #SK <>  :SKVal",
@@ -49,7 +45,7 @@ class Dynamo {
           },
           ExpressionAttributeValues: {
             ":PKVal": { S: subscription },
-            ":SKVal": { S: ITEM_SK(item.id) },
+            ":SKVal": { S: ITEM_SK(item) },
           },
         },
         (err) => {
