@@ -17,4 +17,12 @@ export class LoggerService extends ConsoleLogger implements Logger {
       ...args,
     );
   }
+
+  protected formatPid(pid: number): string {
+    return '';
+  }
+
+  protected getTimestamp(): string {
+    return '';
+  }
 }
