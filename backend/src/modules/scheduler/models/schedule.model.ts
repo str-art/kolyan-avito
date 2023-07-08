@@ -1,6 +1,7 @@
 import { ScheduleState } from '@aws-sdk/client-scheduler';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ScheduleTarget } from './schedule.target.model';
+import { replaceUnderscores } from '@modules/utils/String';
 
 export class Schedule {
   @Exclude({ toPlainOnly: true })
@@ -52,6 +53,6 @@ export class Schedule {
 
   @Expose()
   get name() {
-    return this.Name;
+    return replaceUnderscores(this.Name);
   }
 }
