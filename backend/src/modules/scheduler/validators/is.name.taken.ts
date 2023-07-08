@@ -19,7 +19,7 @@ export class IsNameNotTaken implements ValidatorConstraintInterface {
       return true;
     }
 
-    return schedules.filter((schedule) => schedule.Name === name).length === 0;
+    return schedules.filter((schedule) => schedule.name === name).length === 0;
   }
 }
 

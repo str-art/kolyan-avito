@@ -96,7 +96,7 @@ export class SchedulerController {
   @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteSchedule(
     @FindSchedule({ paramName: SCHEDULE_NAME_PARAM, throwIfNotFound: true })
-    schedule: Schedule,
+    { schedule }: { schedule: Schedule },
     @User() user: User,
   ) {
     await this.schedulerService.deleteSchedule(schedule.Name, user);

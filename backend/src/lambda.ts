@@ -15,11 +15,16 @@ async function bootstrap() {
   const logger = new LoggerService('App');
   const app = await NestFactory.create(AppModule);
   app.useLogger(logger);
+  app.setGlobalPrefix('/api');
+  app.enableCors({
+    origin: '*',
+    allowedHeaders: '*',
+    methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.init();
   handler = serverlessExpress.configure<APIGatewayEvent, Context>({
     app: app.getHttpAdapter().getInstance(),
-    log: logger,
   });
   return handler;
 }
