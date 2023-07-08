@@ -15,6 +15,7 @@ import { Schedule } from './models/schedule.model';
 import { plainToClass } from 'class-transformer';
 import { Config } from '@modules/config/config.service';
 import { PARSER_ARN, ROLE_ARN } from '@tokens';
+import { replaceSpaces } from '@modules/utils/String';
 
 @Injectable()
 export class SchedulerService {
@@ -90,7 +91,7 @@ export class SchedulerService {
   ): Promise<Schedule> {
     try {
       await this.scheduler.createSchedule({
-        Name: name,
+        Name: replaceSpaces(name),
         GroupName: this.getGroupNameFromUser(user),
         Target: {
           Input: this.makeScheduleInput(user, link),
@@ -117,7 +118,7 @@ export class SchedulerService {
     try {
       const schedule = await this.scheduler.getSchedule({
         GroupName: this.getGroupNameFromUser(user),
-        Name: name,
+        Name: replaceSpaces(name),
       });
 
       return plainToClass(Schedule, schedule, {
