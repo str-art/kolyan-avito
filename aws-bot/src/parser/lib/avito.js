@@ -1,6 +1,5 @@
 const { parse } = require("node-html-parser");
 const tr = require("tor-request");
-const { STATUS_CODES } = require("http");
 
 const DEFAULT_MARKERS = {
   dataMarker: "data-marker",
@@ -31,7 +30,7 @@ const checkIp = async (tr) =>
   });
 
 const search = async (url) => {
-  await checkIp(tr);
+  // await checkIp(tr);
   await new Promise((ok, fail) => {
     tr.newTorSession((err) => {
       if (err) {

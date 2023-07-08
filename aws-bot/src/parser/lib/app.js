@@ -6,9 +6,11 @@ exports.handler = async (event, context) => {
   try {
     const { payload } = event;
 
-    const { url, table_name, chat_id, token } = payload;
+    const { url, user_id, chat_id } = payload;
 
-    const dynamo = new Dynamo(table_name);
+    const { TABLE_NAME } = process.env;
+
+    const dynamo = new Dynamo(TABLE_NAME);
 
     const htmlNode = await search(url);
 
@@ -16,8 +18,8 @@ exports.handler = async (event, context) => {
 
     const itemAttibutes = items.map((item) => ({
       ...parseItem(item),
+      user_id,
       chat_id,
-      token,
     }));
 
     await Promise.allSettled(

@@ -6,3 +6,4 @@ seeds.sql
 .DS_Store
 .vscode/
 torrc
+dist/
