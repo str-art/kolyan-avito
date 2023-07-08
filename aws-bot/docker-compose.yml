@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  bot:
+    build: .
+    container_name: bot-${COMPOSE_PROJECT_NAME}
+    restart: always
+    ports:
+      - 9000:8080
+      - 9050:9050
+  localstack:
+    image: localstack/localstack
+    ports:
+      - 4566:4566
+    environment:
+      - DYNAMODB_SHARE_DB=1
+      - DEBUG=1

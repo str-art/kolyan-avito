@@ -1,1 +1,6 @@
-{}
+{
+  "arrowParens": "always",
+  "semi": true,
+  "bracketSameLine": true,
+  "trailingComma": "es5"
+}
