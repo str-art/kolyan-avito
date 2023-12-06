@@ -11,6 +11,8 @@ dist/
 /.next/
 /out/
 
+/tor/
+
 # production
 build/
 
