@@ -30,3 +30,7 @@ output "parser_alias_name" {
 output "parser_arn" {
   value = module.parser.alias_arn
 }
+
+output "stream_arn" {
+  value = module.database.stream_arn
+}
