@@ -1,11 +1,11 @@
 resource "aws_dynamodb_table" "this" {
-  name = local.table_name
-  tags = local.tags
-  billing_mode = "PROVISIONED"
-  read_capacity = 1
+  name           = local.table_name
+  tags           = local.tags
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
   write_capacity = 1
 
-  hash_key = "PK"
+  hash_key  = "PK"
   range_key = "SK"
 
   attribute {
@@ -43,6 +43,6 @@ resource "aws_dynamodb_table" "this" {
     type = "S"
   }
 
-  stream_enabled = true
+  stream_enabled   = true
   stream_view_type = "NEW_IMAGE"
 }

@@ -1,6 +1,6 @@
 locals {
   tags = {
-    Stage = var.stage
+    Stage   = var.stage
     Service = "parser"
   }
 

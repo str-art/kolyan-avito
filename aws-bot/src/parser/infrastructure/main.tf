@@ -1,14 +1,14 @@
 module "database" {
   source = "./modules/dynamo"
-  stage = var.stage
+  stage  = var.stage
 }
 
 module "parser" {
-  source = "./modules/lambda"
-  stage = var.stage
-  image = var.image
+  source     = "./modules/lambda"
+  stage      = var.stage
+  image      = var.image
   table_name = module.database.table_name
-  table_arn = module.database.table_arn
+  table_arn  = module.database.table_arn
 }
 
 output "table_name" {

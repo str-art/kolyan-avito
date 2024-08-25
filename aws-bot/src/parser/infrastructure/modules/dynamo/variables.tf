@@ -1,4 +1,4 @@
 variable "stage" {
-  type = string
+  type        = string
   description = "Name of stage"
 }
